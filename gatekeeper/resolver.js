@@ -1,5 +1,6 @@
 const request = require("request");
 const fetch = require("node-fetch");
+const { registerKey } = require("./../config/lambdaKeys");
 
 const resolvers = {
   checker: async () => {},
@@ -16,14 +17,11 @@ const resolvers = {
 
     console.log("body: ", body);
 
-    return fetch(
-      "https://tf9mkhioga.execute-api.us-east-2.amazonaws.com/dev/register",
-      {
-        method: "post",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" }
-      }
-    )
+    return fetch(registerKey, {
+      method: "post",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" }
+    })
       .then(res => res.json())
       .then(json => {
         console.log(json);
