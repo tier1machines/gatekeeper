@@ -1,6 +1,6 @@
 const request = require("request");
 const fetch = require("node-fetch");
-const { registerKey } = require("./../config/lambdaKeys");
+const { registerKey, loginKey } = require("./../config/lambdaKeys");
 
 const resolvers = {
   checker: async () => {},
@@ -29,7 +29,27 @@ const resolvers = {
       });
   },
 
-  login: async () => {}
+  login: async args => {
+    console.log("in login");
+    console.log("args: ", args);
+    const body = {
+      email: args.email,
+      password: args.password
+    };
+
+    console.log("body: ", body);
+
+    return fetch(loginKey, {
+      method: "post",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json);
+        return json;
+      });
+  }
 };
 
 module.exports = resolvers;
