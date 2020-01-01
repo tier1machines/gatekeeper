@@ -1,9 +1,44 @@
-const request = require("request");
 const fetch = require("node-fetch");
-const { registerKey, loginKey } = require("./../config/lambdaKeys");
+const { registerKey, loginKey, checkerKey } = require("./../config/lambdaKeys");
 
 const resolvers = {
-  checker: async () => {},
+  checker: async (args, root, context, info) => {
+    console.log("in checker");
+
+    // console.log("args: ", args);
+    console.log("root: ", root.headers);
+    console.log("root: ", root.headers.authorization);
+    // console.log("context: ", context);
+    // console.log("info: ", info);
+
+    // let result;
+    // axios
+    //   .get(checkerKey, {
+    //     headers: { Authorization: root.headers.authorization }
+    //   })
+    //   .then(async res => {
+    //     console.log("res: ", res);
+    //     console.log("res headers: ", res.headers);
+    //     console.log("res data Item: ", res.data.Item);
+    //     result = await res.data.Item;
+    //     // return res.data.Item;
+    //   });
+    // return result;
+
+    return fetch(checkerKey, {
+      headers: { Authorization: root.headers.authorization }
+    })
+      .then(res => {
+        console.log("res: ", res);
+        console.log("res.body: ", res.body);
+        console.log("res.headers: ", res.headers);
+        return res.json();
+      })
+      .then(json => {
+        console.log("json: ", json);
+        return json;
+      });
+  },
 
   register: async args => {
     console.log("in register");
