@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon gatekeeper/server.js"
+    "start": "node gatekeeper/server.js"
   },
   "author": "Joshua Manto",
   "license": "ISC",
