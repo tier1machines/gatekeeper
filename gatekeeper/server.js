@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const schema = require("./schema.js");
 const resolver = require("./resolver.js");
 
-const PORT = 3000;
+const PORT = 8081;
 
 const app = express();
 
